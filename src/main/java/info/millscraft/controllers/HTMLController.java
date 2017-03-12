@@ -1,0 +1,17 @@
+package info.millscraft.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * @author Grant Mills
+ * @since 3/12/17
+ */
+@Controller
+public class HTMLController {
+
+	@RequestMapping("/")
+	public String homePage() {
+		return "index.html";
+	}
+}
