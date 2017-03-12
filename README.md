@@ -19,11 +19,11 @@ Combat Speed
 
 Tech Stack
 ----------
-The serverside architecture is a Spring-Boot application. It uses Spring Data to automatically wire up REST endpoints for our domain models. I use Maven to handle dependecies and building the jar.
+The serverside architecture is a [Spring-Boot](https://projects.spring.io/spring-boot/) application. It uses [Spring Data](http://projects.spring.io/spring-data/) to automatically wire up REST endpoints for our domain models. I use Maven to handle dependecies and building the jar.
 
-The front end architecture is an Angular.js app. It uses the ui-bootstrap module to integrate Twitter Bootstrap UI components into the Angular app.
+The front end architecture is an [Angular.js](https://angularjs.org/) app. It uses the [ui-bootstrap module](https://angular-ui.github.io/bootstrap) to integrate Twitter Bootstrap UI components into the Angular app.
 
-Styles are used from Twitter Bootstrap. 
+Styles are used from [Twitter Bootstrap](http://getbootstrap.com/2.3.2/). 
 
 No front end build system is used at this time, due to simplicity of the application.
 
