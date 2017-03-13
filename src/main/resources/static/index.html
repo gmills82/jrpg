@@ -9,7 +9,13 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/lib/angular.js"></script>
+    <script src="js/lib/angular-resource.js"></script>
+    <script src="js/lib/angular-spring-data-rest.js"></script>
     <script src="js/lib/ui-bootstrap.min.js"></script>
+    <script src="js/character-add/character-add.module.js"></script>
+    <script src="js/character-add/character-add.component.js"></script>
+    <script src="js/character-list/character-list.module.js"></script>
+    <script src="js/character-list/character-list.component.js"></script>
     <script src="js/application.js"></script>
 </head>
 <body>
@@ -18,23 +24,15 @@
         <h1>JRPG Combat Timer</h1>
     </div>
     <div class="row">
-        <div class="span2" ng-controller="CharacterDisplayController">
-            <ul>
-                <li ng-repeat="character in characters">
-                    <span>{{character.name}}</span>
-                    <span>{{character.initiative}}</span>
-                    <span>{{character.combatSpeed}}</span>
-                </li>
-            </ul>
-            <button class="btn">Add Character</button>
+        <div class="span4">
+            <character-list></character-list>
+            <character-add></character-add>
         </div>
         <div class="span5">
             <ul>
 
             </ul>
             <button class="btn">Start Combat</button>
-        </div>
-        <div class="span2">
             <button class="btn">Add Monster</button>
         </div>
     </div>
