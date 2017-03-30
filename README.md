@@ -30,4 +30,4 @@ No front end build system is used at this time, due to simplicity of the applica
 Running the application
 -----------------------
 * Run `mvn spring-boot:run` inside the root folder
-* Example urls include localhost:8080 and localhost:8080/api/characters
+* Example urls include [localhost:8080](http://localhost:8080) and [localhost:8080/api/characters](http://localhost:8080/api/characters)
