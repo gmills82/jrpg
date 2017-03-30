@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HTMLController {
 
-	@RequestMapping("/")
+	@RequestMapping(value = "/", produces = "text/html")
 	public String homePage() {
 		return "index.html";
 	}
