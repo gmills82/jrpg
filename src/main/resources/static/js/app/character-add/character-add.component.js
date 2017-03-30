@@ -1,5 +1,5 @@
 angular.module("characterAdd").component("characterAdd", {
-	templateUrl: 'js/character-add/character-add-button.template.html',
+	templateUrl: 'js/app/character-add/character-add-button.template.html',
 	controller: ["$http", "$uibModal", function CharacterAddController($http, $uibModal) {
 		this.showModal = function() {
 			console.log("button clicked");

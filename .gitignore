@@ -1,5 +1,8 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+.mvn/*
 
 ### MAC ###
 .DS_Store
@@ -25,3 +28,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### NPM ###
+node_modules/*
