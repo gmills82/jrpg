@@ -1,0 +1,18 @@
+body {
+   background-image: url("../img/triangular.png");
+}
+
+.header-background {
+   background-image: url("../img/footer_lodyas.png");
+}
+
+.dnd-title {
+  //currently a place holder until I figure out some dope dungeon style
+  font-family: "Telefon Black", Sans-Serif;
+  line-height: 1.1;
+  color: white;
+}
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}

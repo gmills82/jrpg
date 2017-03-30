@@ -13,8 +13,8 @@ angular.module("characterAdd").component("characterAdd", {
 
 		this.addCharacter = function (character) {
 			$http.post("api/characters", character).then(function (response) {
-				console.log(response)
-			})
+				console.log(response);
+			});
 		};
 	}]
 });
