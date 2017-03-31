@@ -16,3 +16,15 @@ body {
     padding-right: 0px;
     padding-left: 0px;
 }
+
+.right {
+  float: right;
+}
+
+.action-block {
+  background-image: url("../img/sayagata.png");
+}
+
+.header {
+  margin-top: 14px;
+}
