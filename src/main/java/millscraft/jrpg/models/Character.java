@@ -1,5 +1,8 @@
 package millscraft.jrpg.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Character combatants
  * @author Grant Mills
@@ -8,20 +11,9 @@ package millscraft.jrpg.models;
 
 public class Character extends Combatant {
 
-	public Character(String name, int initiative, int combatSpeed) {
+	@JsonCreator
+	public Character(@JsonProperty("name") String name, @JsonProperty("initiative") Integer initiative, @JsonProperty("combatSpeed") Double combatSpeed) {
 		super(name, initiative, combatSpeed);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getInitiative() {
-		return initiative;
-	}
-
-	public int getCombatSpeed() {
-		return combatSpeed;
 	}
 
 	@Override

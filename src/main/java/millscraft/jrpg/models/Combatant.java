@@ -1,5 +1,6 @@
 package millscraft.jrpg.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
@@ -10,24 +11,25 @@ import javax.validation.constraints.NotNull;
  */
 public class Combatant {
 	@Id
+	@JsonIgnore
 	private String id;
 
 	@NotNull
 	protected String name;
 	@NotNull
-	protected int initiative;
+	protected Integer initiative;
 	@NotNull
-	protected int combatSpeed;
+	protected Double combatSpeed;
 
 	public Combatant() {}
 
-	public Combatant(String name, int initiative, int combatSpeed) {
+	public Combatant(String name, Integer initiative, Double combatSpeed) {
 		this.name = name;
 		this.initiative = initiative;
 		this.combatSpeed = combatSpeed;
 	}
 
-	public int getCalculatedSpeed(int round) {
+	public double getCalculatedSpeed(int round) {
 		if(round <= 0) {
 			throw new IllegalArgumentException("Round must be a positive integer");
 		}
@@ -39,11 +41,11 @@ public class Combatant {
 		return name;
 	}
 
-	public int getInitiative() {
+	public Integer getInitiative() {
 		return initiative;
 	}
 
-	public int getCombatSpeed() {
+	public Double getCombatSpeed() {
 		return combatSpeed;
 	}
 
@@ -54,14 +56,16 @@ public class Combatant {
 
 		Combatant combatant = (Combatant) o;
 
-		if (initiative != combatant.initiative) return false;
-		return name.equals(combatant.name);
+		if (!name.equals(combatant.name)) return false;
+		if (!initiative.equals(combatant.initiative)) return false;
+		return combatSpeed.equals(combatant.combatSpeed);
 	}
 
 	@Override
 	public int hashCode() {
 		int result = name.hashCode();
-		result = 31 * result + initiative;
+		result = 31 * result + initiative.hashCode();
+		result = 31 * result + combatSpeed.hashCode();
 		return result;
 	}
 }

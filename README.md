@@ -25,7 +25,8 @@ Combat Speed
 
 Tech Stack
 ----------
-- [Spring Data](http://projects.spring.io/spring-data/) to automatically wire up REST endpoints for our domain models
+- [Spring Data JPA](http://projects.spring.io/spring-data/) to make it easy to query models
+- [Spring Data REST](https://spring.io/guides/gs/accessing-data-rest/) to automatically wire up REST endpoints for our domain models
 - [Spring-Boot](https://projects.spring.io/spring-boot/) application
 - [Maven](https://github.com/apache/maven) for dependency management
 - [Angular.js](https://angularjs.org/) for SPA HTML front end
@@ -39,4 +40,5 @@ Running the application
 - Run `mvn spring-boot:run` inside the root folder
 - Example urls include:
 	- [http://localhost:8080](http://localhost:8080)
-	- [http://localhost:8080/api/combatants](http://localhost:8080/api/combatants)
+	- [http://localhost:8080/api/combatants](http://localhost:8080/api/characters)
+	- [http://localhost:8080/api/combatants](http://localhost:8080/api/monsters)
