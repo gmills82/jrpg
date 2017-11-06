@@ -1,7 +1,10 @@
 package millscraft.jrpg.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.annotation.Id;
 
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,22 +16,34 @@ import java.util.concurrent.ThreadLocalRandom;
  * @since 11/5/17
  */
 public class Combat {
+	@Id
+	private String id;
+
 	private LinkedList<Combatant> allCombatants;
 
 	private static final Logger log = LoggerFactory.getLogger(Combat.class);
 
-	public Combat(LinkedList<Combatant> allCombatants) {
-		//Sort combatants by initiative
+	@JsonCreator
+	public Combat(@JsonProperty("combatants") LinkedList<Combatant> allCombatants) {
+		if(null == allCombatants) {
+			throw new IllegalArgumentException("The list of combatants cannot be null");
+		}
+		if(allCombatants.size() < 2) {
+			throw new IllegalArgumentException("There must be at least two combatants to start combat");
+		}
+
 		this.allCombatants = allCombatants;
 	}
 
 	public void addCombatant(Combatant combatant) {
+		log.debug(combatant.getName() + " was added tot he combat");
 		allCombatants.addLast(combatant);
 	}
 
 	public void removeCombatant(Combatant combatant) {
 		if(allCombatants.contains(combatant)) {
 			allCombatants.remove(combatant);
+			log.debug(combatant.getName() + " was removed from combat");
 		} else {
 			log.debug(combatant.toString() + " not found in combat.");
 		}
@@ -76,5 +91,9 @@ public class Combat {
 		}else {
 			return this.sortByCalculatedSpeedForRound(round);
 		}
+	}
+
+	public String getId() {
+		return id;
 	}
 }
