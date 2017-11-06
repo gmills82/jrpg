@@ -32,6 +32,7 @@ public class CombatController {
 	public @ResponseBody ResponseEntity<?> addCharacter(@PathVariable String combatId, @RequestBody Character combatant) {
 		Combat combat = mCombatRepository.findOne(combatId);
 
+		//TODO: Doesn't save character when passed one in body - likely cause it doesn't go through the Spring Data Rest endpoints
 		combat.addCharacter(combatant);
 		mCombatRepository.save(combat);
 
