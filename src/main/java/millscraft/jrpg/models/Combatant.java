@@ -9,10 +9,11 @@ import javax.validation.constraints.NotNull;
  * @author Grant Mills
  * @since 3/10/17
  */
-public class Combatant {
+//TODO: Refactor to make this class abstract
+public abstract class Combatant {
 	@Id
 	@JsonIgnore
-	private String id;
+	protected String id;
 
 	@NotNull
 	protected String name;
@@ -20,8 +21,6 @@ public class Combatant {
 	protected Integer initiative;
 	@NotNull
 	protected Double combatSpeed;
-
-	public Combatant() {}
 
 	public Combatant(String name, Integer initiative, Double combatSpeed) {
 		this.name = name;

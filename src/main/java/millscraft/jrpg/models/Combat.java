@@ -1,6 +1,5 @@
 package millscraft.jrpg.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,38 +18,28 @@ public class Combat {
 	@Id
 	private String id;
 
+	@JsonProperty("combatants")
 	private LinkedList<Combatant> allCombatants;
 
 	private static final Logger log = LoggerFactory.getLogger(Combat.class);
 
-	@JsonCreator
-	public Combat(@JsonProperty("combatants") LinkedList<Combatant> allCombatants) {
-		if(null == allCombatants) {
-			throw new IllegalArgumentException("The list of combatants cannot be null");
-		}
-		if(allCombatants.size() < 2) {
-			throw new IllegalArgumentException("There must be at least two combatants to start combat");
-		}
-
-		this.allCombatants = allCombatants;
-	}
-
-	public void addCombatant(Combatant combatant) {
+	public void addCharacter(Character combatant) {
 		log.debug(combatant.getName() + " was added to the combat");
 		allCombatants.addLast(combatant);
 	}
 
-	public void removeCombatant(Combatant combatant) {
+	public void addMonster(Monster combatant) {
+		log.debug(combatant.getName() + " was added to the combat");
+		allCombatants.addLast(combatant);
+	}
+
+	public <T extends Combatant> void removeCombatant(T combatant) {
 		if(allCombatants.contains(combatant)) {
 			allCombatants.remove(combatant);
 			log.debug(combatant.getName() + " was removed from combat");
 		} else {
 			log.debug(combatant.toString() + " not found in combat.");
 		}
-	}
-
-	public LinkedList<Combatant> getAllCombatants() {
-		return allCombatants;
 	}
 
 	private LinkedList<Combatant> sortByCalculatedSpeedForRound(int round) {
@@ -91,6 +80,15 @@ public class Combat {
 		}else {
 			return this.sortByCalculatedSpeedForRound(round);
 		}
+	}
+
+	//Getters and Setters
+	public LinkedList<Combatant> getAllCombatants() {
+		return allCombatants;
+	}
+
+	public void setAllCombatants(LinkedList<Combatant> allCombatants) {
+		this.allCombatants = allCombatants;
 	}
 
 	public String getId() {

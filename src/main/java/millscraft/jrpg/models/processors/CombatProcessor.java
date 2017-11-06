@@ -16,9 +16,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Component
 public class CombatProcessor implements ResourceProcessor<Resource<Combat>> {
 
+	//Not sure why Spring HATEOAS methodOn doesn't append /api since the controller class is BasePathAwareController
 	@Override
 	public Resource<Combat> process(Resource<Combat> resource) {
-		resource.add(linkTo(methodOn(CombatController.class).addCombatant(resource.getContent().getId(), null)).withRel("edit"));
+		resource.add(linkTo(methodOn(CombatController.class).addCharacter(resource.getContent().getId(), null)).withRel("edit"));
+		resource.add(linkTo(methodOn(CombatController.class).addMonster(resource.getContent().getId(), null)).withRel("edit"));
 		return resource;
 	}
 }
