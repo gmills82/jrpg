@@ -56,16 +56,14 @@ public class Combatant {
 
 		Combatant combatant = (Combatant) o;
 
-		if (!name.equals(combatant.name)) return false;
-		if (!initiative.equals(combatant.initiative)) return false;
-		return combatSpeed.equals(combatant.combatSpeed);
+		if (!id.equals(combatant.id)) return false;
+		return name.equals(combatant.name);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = name.hashCode();
-		result = 31 * result + initiative.hashCode();
-		result = 31 * result + combatSpeed.hashCode();
+		int result = id.hashCode();
+		result = 31 * result + name.hashCode();
 		return result;
 	}
 }

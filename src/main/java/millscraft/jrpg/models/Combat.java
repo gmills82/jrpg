@@ -36,7 +36,7 @@ public class Combat {
 	}
 
 	public void addCombatant(Combatant combatant) {
-		log.debug(combatant.getName() + " was added tot he combat");
+		log.debug(combatant.getName() + " was added to the combat");
 		allCombatants.addLast(combatant);
 	}
 
@@ -95,5 +95,30 @@ public class Combat {
 
 	public String getId() {
 		return id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Combat combat = (Combat) o;
+
+		if (!id.equals(combat.id)) return false;
+		return allCombatants.equals(combat.allCombatants);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + allCombatants.hashCode();
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Combat{" +
+			"allCombatants=" + allCombatants +
+			'}';
 	}
 }
