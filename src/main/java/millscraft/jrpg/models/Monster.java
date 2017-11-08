@@ -14,6 +14,11 @@ public class Monster extends Combatant {
 	private static final String BASE_MONSTER_NAME = "Monster ";
 
 	@JsonCreator
+	public Monster(String name, Integer initiative, Double combatSpeed) {
+		super(name, initiative, combatSpeed);
+	}
+
+	@JsonCreator
 	public Monster(@JsonProperty("initiative") int initiative, @JsonProperty("combatSpeed") Double combatSpeed) {
 		super(BASE_MONSTER_NAME + totalMonsterCount.toString(), initiative, combatSpeed);
 
