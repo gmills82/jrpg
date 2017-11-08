@@ -28,7 +28,7 @@ public class CombatController {
 		mCombatRepository = combatRepository;
 	}
 
-	@RequestMapping(method= RequestMethod.PUT, value="/{combatId}/add/character")
+	@RequestMapping(method = RequestMethod.PUT, value ="/{combatId}/add/character")
 	public @ResponseBody ResponseEntity<?> addCharacter(@PathVariable String combatId, @RequestBody Character combatant) {
 		Combat combat = mCombatRepository.findOne(combatId);
 
@@ -39,11 +39,21 @@ public class CombatController {
 		return ResponseEntity.ok(combatResource);
 	}
 
-	@RequestMapping(method= RequestMethod.PUT, value="/{combatId}/add/monster")
+	@RequestMapping(method = RequestMethod.PUT, value ="/{combatId}/add/monster")
 	public @ResponseBody ResponseEntity<?> addMonster(@PathVariable String combatId, @RequestBody Monster combatant) {
 		Combat combat = mCombatRepository.findOne(combatId);
 
 		combat.addMonster(combatant);
+		mCombatRepository.save(combat);
+
+		Resource<Combat> combatResource = new Resource<>(combat);
+		return ResponseEntity.ok(combatResource);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/{combatId}/remove/character/{characterName}")
+	public @ResponseBody ResponseEntity<?> removeCharacter(@PathVariable String combatId, @PathVariable String characterName) {
+		Combat combat = mCombatRepository.findOne(combatId);
+		combat.removeCombatant(characterName);
 		mCombatRepository.save(combat);
 
 		Resource<Combat> combatResource = new Resource<>(combat);

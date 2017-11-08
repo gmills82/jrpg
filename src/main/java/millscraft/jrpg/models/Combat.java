@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -24,21 +25,23 @@ public class Combat {
 	private static final Logger log = LoggerFactory.getLogger(Combat.class);
 
 	public void addCharacter(Character combatant) {
-		log.debug(combatant.getName() + " was added to the combat");
+
 		allCombatants.addLast(combatant);
+		log.debug(combatant.getName() + " was added to the combat");
 	}
 
 	public void addMonster(Monster combatant) {
-		log.debug(combatant.getName() + " was added to the combat");
 		allCombatants.addLast(combatant);
+		log.debug(combatant.getName() + " was added to the combat");
 	}
 
-	public <T extends Combatant> void removeCombatant(T combatant) {
-		if(allCombatants.contains(combatant)) {
-			allCombatants.remove(combatant);
-			log.debug(combatant.getName() + " was removed from combat");
+	public void removeCombatant(String combatantName) {
+		Optional<Combatant> c = allCombatants.stream().filter(combatant -> combatantName.equals(combatant.getName())).findFirst();
+		if(c.isPresent()) {
+			allCombatants.remove(c.get());
+			log.debug(c.get().getName() + " was removed from combat");
 		} else {
-			log.debug(combatant.toString() + " not found in combat.");
+			log.debug(combatantName + " not found in combat.");
 		}
 	}
 

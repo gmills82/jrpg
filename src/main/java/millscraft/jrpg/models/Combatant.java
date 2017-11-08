@@ -1,6 +1,9 @@
 package millscraft.jrpg.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +12,14 @@ import javax.validation.constraints.NotNull;
  * @author Grant Mills
  * @since 3/10/17
  */
-//TODO: Refactor to make this class abstract
+@JsonTypeInfo(
+	use = JsonTypeInfo.Id.NAME,
+	include = JsonTypeInfo.As.PROPERTY,
+	property = "type")
+@JsonSubTypes({
+	@Type(value = Character.class, name = "character"),
+	@Type(value = Monster.class, name = "monster")
+})
 public abstract class Combatant {
 	@Id
 	@JsonIgnore
@@ -38,6 +48,10 @@ public abstract class Combatant {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public Integer getInitiative() {
