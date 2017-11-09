@@ -40,5 +40,4 @@ Running the application
 - Run `mvn spring-boot:run` inside the root folder
 - Example urls include:
 	- [http://localhost:8080](http://localhost:8080)
-	- [http://localhost:8080/api/combatants](http://localhost:8080/api/characters)
-	- [http://localhost:8080/api/combatants](http://localhost:8080/api/monsters)
+	- [http://localhost:8080/api/combats](http://localhost:8080/api/combats)
