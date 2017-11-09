@@ -29,8 +29,18 @@ public class CombatProcessor implements ResourceProcessor<Resource<Combat>> {
 			}
 		}
 
-		resource.add(linkTo(methodOn(CombatController.class).addCharacter(resource.getContent().getId(), null)).withRel("edit-combat"));
-		resource.add(linkTo(methodOn(CombatController.class).addMonster(resource.getContent().getId(), null)).withRel("edit-combat"));
+		//Add Combatant link
+		resource.add(linkTo(methodOn(CombatController.class).addCombatant(resource.getContent().getId(), null)).withRel("edit-combat"));
+
+		//Round information
+		Integer currentRound = resource.getContent().getCurrentRound();
+		//Next round link
+		resource.add(linkTo(methodOn(CombatController.class).getRoundOrder(resource.getContent().getId(), currentRound + 1)).withRel("next-round"));
+		//Previous round link
+		if(currentRound > 1) {
+			resource.add(linkTo(methodOn(CombatController.class).getRoundOrder(resource.getContent().getId(), currentRound - 1)).withRel("prev-round"));
+		}
+
 		return resource;
 	}
 }

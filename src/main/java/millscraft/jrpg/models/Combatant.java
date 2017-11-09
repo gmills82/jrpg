@@ -1,10 +1,8 @@
 package millscraft.jrpg.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
 
@@ -21,9 +19,6 @@ import javax.validation.constraints.NotNull;
 	@Type(value = Monster.class, name = "monster")
 })
 public abstract class Combatant {
-	@Id
-	@JsonIgnore
-	protected String id;
 
 	@NotNull
 	protected String name;
@@ -42,16 +37,16 @@ public abstract class Combatant {
 		if(round <= 0) {
 			throw new IllegalArgumentException("Round must be a positive integer");
 		}
+		//First round is the zeroeth round, only initiative matters
+		//Second round is first round, on and on
+		round -= 1.0;
+
 		//y=mx+b y = calculatedSpeed, x = round, m = speed, b = initiative
 		return ((combatSpeed*round) + initiative);
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public Integer getInitiative() {
@@ -69,14 +64,11 @@ public abstract class Combatant {
 
 		Combatant combatant = (Combatant) o;
 
-		if (!id.equals(combatant.id)) return false;
 		return name.equals(combatant.name);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = id.hashCode();
-		result = 31 * result + name.hashCode();
-		return result;
+		return name.hashCode();
 	}
 }

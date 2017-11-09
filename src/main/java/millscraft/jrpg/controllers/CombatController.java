@@ -1,8 +1,7 @@
 package millscraft.jrpg.controllers;
 
-import millscraft.jrpg.models.Character;
 import millscraft.jrpg.models.Combat;
-import millscraft.jrpg.models.Monster;
+import millscraft.jrpg.models.Combatant;
 import millscraft.jrpg.repositories.CombatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since 11/6/17
  */
 @BasePathAwareController
-@RequestMapping("/api/combat")
+@RequestMapping("/api/combats")
 public class CombatController {
 	private final CombatRepository mCombatRepository;
 
@@ -28,22 +27,11 @@ public class CombatController {
 		mCombatRepository = combatRepository;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value ="/{combatId}/add/character")
-	public @ResponseBody ResponseEntity<?> addCharacter(@PathVariable String combatId, @RequestBody Character combatant) {
+	@RequestMapping(method = RequestMethod.PUT, value ="/{combatId}/add/combatant")
+	public @ResponseBody ResponseEntity<?> addCombatant(@PathVariable String combatId, @RequestBody Combatant combatant) {
 		Combat combat = mCombatRepository.findOne(combatId);
 
-		combat.addCharacter(combatant);
-		mCombatRepository.save(combat);
-
-		Resource<Combat> combatResource = new Resource<>(combat);
-		return ResponseEntity.ok(combatResource);
-	}
-
-	@RequestMapping(method = RequestMethod.PUT, value ="/{combatId}/add/monster")
-	public @ResponseBody ResponseEntity<?> addMonster(@PathVariable String combatId, @RequestBody Monster combatant) {
-		Combat combat = mCombatRepository.findOne(combatId);
-
-		combat.addMonster(combatant);
+		combat.addCombatant(combatant);
 		mCombatRepository.save(combat);
 
 		Resource<Combat> combatResource = new Resource<>(combat);
@@ -54,6 +42,27 @@ public class CombatController {
 	public @ResponseBody ResponseEntity<?> removeCharacter(@PathVariable String combatId, @PathVariable String characterName) {
 		Combat combat = mCombatRepository.findOne(combatId);
 		combat.removeCombatant(characterName);
+		mCombatRepository.save(combat);
+
+		Resource<Combat> combatResource = new Resource<>(combat);
+		return ResponseEntity.ok(combatResource);
+	}
+
+	//Sort the combatants on the first call
+	@RequestMapping(method = RequestMethod.GET, value = "/{combatId}")
+	public @ResponseBody ResponseEntity<?> getCombat(@PathVariable String combatId) {
+		return this.getRoundOrder(combatId, 1);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/{combatId}/round/{roundNumber}")
+	public @ResponseBody ResponseEntity<?> getRoundOrder(@PathVariable String combatId, @PathVariable Integer roundNumber) {
+		if(roundNumber < 0) {
+			throw new IllegalArgumentException("Rounds cannot be negative");
+		}
+
+		Combat combat = mCombatRepository.findOne(combatId);
+		combat.setAllCombatants(combat.getRoundOrder(roundNumber));
+		combat.setCurrentRound(roundNumber);
 		mCombatRepository.save(combat);
 
 		Resource<Combat> combatResource = new Resource<>(combat);

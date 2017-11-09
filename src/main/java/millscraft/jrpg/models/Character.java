@@ -3,6 +3,8 @@ package millscraft.jrpg.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Character combatants
  * @author Grant Mills
@@ -12,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Character extends Combatant {
 
 	@JsonCreator
-	public Character(@JsonProperty("name") String name, @JsonProperty("initiative") Integer initiative, @JsonProperty("combatSpeed") Double combatSpeed) {
+	public Character(@NotNull @JsonProperty("name") String name,@NotNull @JsonProperty("initiative") Integer initiative,@NotNull @JsonProperty("combatSpeed") Double combatSpeed) {
 		super(name, initiative, combatSpeed);
 	}
 

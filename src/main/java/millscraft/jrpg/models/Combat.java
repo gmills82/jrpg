@@ -21,16 +21,11 @@ public class Combat {
 
 	@JsonProperty("combatants")
 	private LinkedList<Combatant> allCombatants;
+	private Integer currentRound = 1;
 
 	private static final Logger log = LoggerFactory.getLogger(Combat.class);
 
-	public void addCharacter(Character combatant) {
-
-		allCombatants.addLast(combatant);
-		log.debug(combatant.getName() + " was added to the combat");
-	}
-
-	public void addMonster(Monster combatant) {
+	public void addCombatant(Combatant combatant) {
 		allCombatants.addLast(combatant);
 		log.debug(combatant.getName() + " was added to the combat");
 	}
@@ -96,6 +91,14 @@ public class Combat {
 
 	public String getId() {
 		return id;
+	}
+
+	public Integer getCurrentRound() {
+		return currentRound;
+	}
+
+	public void setCurrentRound(Integer currentRound) {
+		this.currentRound = currentRound;
 	}
 
 	@Override
